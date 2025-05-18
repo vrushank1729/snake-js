@@ -1,0 +1,8 @@
+{
+  "name": "Snake JS",
+  "short_name": "Snake",
+  "start_url": "/snake-js/",
+  "display": "standalone",
+  "background_color": "#444",
+  "theme_color": "#0f0"
+}
