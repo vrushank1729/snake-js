@@ -1,19 +1,8 @@
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-function resizeCanvas() {
-  const size = Math.min(window.innerWidth, window.innerHeight) * 0.9;
-  canvas.width = size;
-  canvas.height = size;
-
-  showStartMessage();  // show start message after resizing canvas
-}
-
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
-
-
-// ---------------------------------------------------------------------------------------------
+let gridSize = 25;              // number of cells horizontally
+let cellSize;                   // actual pixel size, computed from canvas width
 
 const score = document.getElementById("score");
 const highScore = document.getElementById("highScore");
@@ -21,31 +10,45 @@ const highScore = document.getElementById("highScore");
 let hs = localStorage.getItem("highScoreBrowser") || 0;
 highScore.textContent = hs;
 
-ctx.fillStyle = "#444";         
-ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-showStartMessage();
-
-let gridSize = 25;              // number of cells horizontally
-let cellSize;                   // actual pixel size, computed from canvas width
-
-cellSize = Math.floor(canvas.width / gridSize);
-
-const startX = Math.floor(gridSize / 2) * cellSize;
-const startY = Math.floor(gridSize / 2) * cellSize;
-
-let snake, direction, apple = {x: 0, y: 0};
+let snake, direction, apple = { x: 0, y: 0 };
 let gameOn = false;
 
-snake = [
+let startX, startY;
+
+function resizeCanvas() {
+  let size = Math.min(window.innerWidth, window.innerHeight) * 0.95;
+
+  // Make canvas size a multiple of gridSize to align cells
+  size = Math.floor(size / gridSize) * gridSize;
+
+  canvas.width = size;
+  canvas.height = size;
+
+  cellSize = Math.floor(canvas.width / gridSize);
+
+  startX = Math.floor(gridSize / 2) * cellSize;
+  startY = Math.floor(gridSize / 2) * cellSize;
+
+
+  snake = [
     { x: startX, y: startY },
     { x: startX - cellSize, y: startY },
     { x: startX - 2 * cellSize, y: startY }
-];
+  ];
 
-direction = "right";
+  direction = "right";
+  gameOn = false;
+  score.textContent = 0;
 
-drawSnake();
+  showStartMessage();
+}
+
+
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+ctx.fillStyle = "#444";         
+ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 // -----------------------------------------------------------------------------------------------------------
 
@@ -118,10 +121,16 @@ function playLoop() {
     drawApple();
   }
 
-  if(snake[0].x < 0 || snake[0].y < 0 || snake[0].x > canvas.width || snake[0].y > canvas.height) {
+  if (
+    snake[0].x < 0 ||
+    snake[0].y < 0 ||
+    snake[0].x >= canvas.width ||
+    snake[0].y >= canvas.height
+  ) {
     gameBreak();
     return;
   }
+
 
   for(let i = 1; i < snake.length; i++) {
     if(snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
@@ -262,11 +271,3 @@ function showStartMessage() {
 }
 
 // -----------------------------------------------------------------------------------------
-
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/snake-js/sw.js')
-      .then(reg => console.log('Service Worker registered:', reg))
-      .catch(err => console.error('Service Worker registration failed:', err));
-  });
-}

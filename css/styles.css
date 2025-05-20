@@ -13,8 +13,8 @@ header {
 }
 
 canvas {
-    width: 90vmin;           /* 90% of the smaller of vw or vh */
-    height: 90vmin;
+    width: 95vmin;           /* 90% of the smaller of vw or vh */
+    height: 95vmin;
     max-width: 600px;
     max-height: 600px;
     background-color: #111;
