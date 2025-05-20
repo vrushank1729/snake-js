@@ -17,6 +17,7 @@ let startX, startY;
 
 function resizeCanvas() {
   let size = Math.min(window.innerWidth, window.innerHeight) * 0.95;
+  size = Math.min(size, 600);
 
   // Make canvas size a multiple of gridSize to align cells
   size = Math.floor(size / gridSize) * gridSize;
