@@ -23,13 +23,9 @@ header {
     margin-bottom: 1rem;
 }
 
-/* Canvas layout fix with original appearance */
 canvas {
-    width: 95vmin;
-    height: 95vmin;
-    max-width: 600px;
-    max-height: 600px;
     background-color: #111;
     border: 2px solid white;
     display: block;
+    margin: 0 auto;
 }

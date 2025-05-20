@@ -21,6 +21,9 @@ function resizeCanvas() {
   // Make canvas size a multiple of gridSize to align cells
   size = Math.floor(size / gridSize) * gridSize;
 
+  canvas.style.width = size + "px";
+  canvas.style.height = size + "px";
+
   canvas.width = size;
   canvas.height = size;
 
