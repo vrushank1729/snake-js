@@ -48,7 +48,10 @@ function resizeCanvas() {
 }
 
 
-resizeCanvas();
+window.onload = () => {
+  resizeCanvas();
+};
+
 window.addEventListener("resize", resizeCanvas);
 
 ctx.fillStyle = "#444";         
@@ -58,7 +61,7 @@ ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 function gameBreak() {
     clearCanvas();
-    ctx.font = "20px Arial";
+    ctx.font = Math.floor(canvas.height * 0.05) + "px Arial";
     ctx.fillStyle = "white";
     ctx.textAlign = "center";      // center horizontally
     ctx.textBaseline = "top";      // align to top vertically
@@ -262,7 +265,7 @@ function isTouchDevice() {
 
 function showStartMessage() {
   clearCanvas();
-  ctx.font = "20px Arial";
+  ctx.font = Math.floor(canvas.height * 0.05) + "px Arial";
   ctx.fillStyle = "white";
   ctx.textAlign = "center";
   ctx.textBaseline = "top";
