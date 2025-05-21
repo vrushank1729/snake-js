@@ -16,12 +16,19 @@ let gameOn = false;
 let startX, startY;
 
 function resizeCanvas() {
-  const minDimension = Math.min(window.innerWidth, window.innerHeight);
-  const size = Math.floor((minDimension * 0.95) / gridSize) * gridSize;
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+
+  let size = Math.min(vw * 0.9, vh * 0.8); // bigger on PC, fits phone
+  size = Math.floor(size / gridSize) * gridSize;
 
   canvas.width = size;
   canvas.height = size;
+
   cellSize = size / gridSize;
+
+  canvas.style.width = size + "px";
+  canvas.style.height = size + "px";
 
   startX = Math.floor(gridSize / 2) * cellSize;
   startY = Math.floor(gridSize / 2) * cellSize;
@@ -38,7 +45,6 @@ function resizeCanvas() {
 
   showStartMessage();
 }
-
 
 window.onload = () => {
   resizeCanvas();
