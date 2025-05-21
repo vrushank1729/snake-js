@@ -16,23 +16,15 @@ let gameOn = false;
 let startX, startY;
 
 function resizeCanvas() {
-  let size = Math.min(window.innerWidth, window.innerHeight) * 0.95;
-  size = Math.min(size, 600);
-
-  // Make canvas size a multiple of gridSize to align cells
-  size = Math.floor(size / gridSize) * gridSize;
-
-  canvas.style.width = size + "px";
-  canvas.style.height = size + "px";
+  const minDimension = Math.min(window.innerWidth, window.innerHeight);
+  const size = Math.floor((minDimension * 0.95) / gridSize) * gridSize;
 
   canvas.width = size;
   canvas.height = size;
-
-  cellSize = Math.floor(canvas.width / gridSize);
+  cellSize = size / gridSize;
 
   startX = Math.floor(gridSize / 2) * cellSize;
   startY = Math.floor(gridSize / 2) * cellSize;
-
 
   snake = [
     { x: startX, y: startY },
